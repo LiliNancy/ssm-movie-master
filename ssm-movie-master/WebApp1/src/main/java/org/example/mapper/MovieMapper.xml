@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.MovieMapper">
+    <resultMap id="movielist" type="org.example.entity.Movie">
+        <result column="movieid" property="movieid"></result>
+        <result column="mname" property="mname"></result>
+        <result column="introduction" property="introduction"></result>
+        <result column="type" property="type"></result>
+        <result column="duration" property="duration"></result>
+        <result column="director" property="director"></result>
+        <result column="performer" property="performer"></result>
+        <!--以下为加的 -->
+        <result column="url" property="url"/>
+    </resultMap>
+    <select id="findMovieByName" parameterType="String" resultMap="movielist">
+        SELECT * FROM movie_info where mname like CONCAT('%',#{name},'%')
+    </select>
+    <select id="findAllMovie" resultMap="movielist">
+        select * from movie_info
+    </select>
+    <select id="findMovieById" parameterType="int" resultType="Movie">
+        SELECT * FROM movie_info where movieid=#{id}
+    </select>
+    <update id="updateMovieInfo">
+        update movie_Info set MName=#{moviename},introduction=#{movieintro},type=#{kinds},
+                              duration=#{moviedtext},director=#{moviedir},performer=#{moviedactor},url=#{urll} where movieid=#{movieid}
+    </update>
+    <insert id="AddRoom">
+        insert into Room_Info values (null,#{movieplace},#{moviestime},#{Mid},#{movieprice});
+    </insert>
+<!--    根据电影编号，获得排片列表，即List<Room>-->
+    <resultMap id="RoomMap" type="org.example.entity.Room">
+        <result column="Roomid" property="Rid" />
+        <result column="Rid" property="num" />
+        <result column="starttime" property="useTime" />
+        <result column="Movieid" property="movieOn" />
+        <result column="price" property="price"/>
+    </resultMap>
+    <select id="CkeckRoom" resultMap="RoomMap">
+        SELECT * from Room_Info where Rid=#{movieplace};
+    </select>
+<!--    根据电影id和排片rid获得某个放映室已被购买的座位号-->
+    <select id="getSeatInfo" resultType="int">
+        select site from ticket_info t, room_info r,movie_info m where t.roomid = r.rid and r.movieid = m.movieid
+                                                                   and m.movieid=#{id} and r.rid = #{rid};
+    </select>
+    <select id="getRoomInfo" parameterType="int" resultMap="RoomMap">
+        select * from room_info where movieid = #{id};
+    </select>
+    <select id="addBill" resultType="int">
+        insert into bill_info values(null,#{money},#{phone},#{rid},#{paytime});
+        select MAX(distinct billid) from bill_info;
+    </select>
+    <insert id="addTicket">
+        insert into ticket_info values(null,#{rid},#{sit},#{billid});
+    </insert>
+    <select id="findMovieByType" parameterType="String" resultMap="movielist">
+        select * from movie_info where type=#{str}
+    </select>
+    <select id="AddMovie" parameterType="Movie" resultType="int">
+        insert into movie_info values(null,#{mname},#{type},#{duration},#{director},#{performer},#{introduction},#{url});
+        select MAX(distinct movieid) from movie_info;
+    </select>
+</mapper>
