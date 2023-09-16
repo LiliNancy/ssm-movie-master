@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.BillMapper">
+    <resultMap id="BaseMap1" type="org.example.entity.Bill">
+        <result column="Billid" property="bid" />
+        <result column="money" property="money" />
+        <result column="paytime" property="paytime" />
+        <association property="user" javaType="org.example.entity.User">
+            <result column="Username" property="username" />
+            <result column="Phone" property="password" />
+            <result column="Password" property="phone" />
+            <result column="Email" property="email" />
+        </association>
+        <association property="room" javaType="org.example.entity.Room">
+            <result column="Roomid" property="Rid" />
+            <result column="Rid" property="num" />
+            <result column="starttime" property="useTime" />
+            <result column="Movieid" property="movieOn" />
+            <result column="price" property="price"/>
+        </association>
+        <collection property="tickets" ofType="org.example.entity.Ticket">
+            <result column="Ticketid" property="num"/>
+            <result column="roomid" property="room"/>
+            <result column="site" property="site"/>
+        </collection>
+    </resultMap>
+    <select id="FindOne" parameterType="java.lang.Long" resultMap="BaseMap1">
+        SELECT a.Billid,a.money,a.paytime,b.*,c.*,d.Ticketid,d.roomid,d.site
+        FROM Bill_Info a,User_Info b,Room_Info c,Ticket_Info d where a.Billid=#{bid} and
+            a.Phone=b.Phone and c.Roomid=a.roomid and d.Billid=a.Billid;
+    </select>
+    <select id="findMovieByID" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select MName from movie_info where MovieID=#{mid}
+    </select>
+    <select id="findAll" parameterType="java.lang.String" resultMap="BaseMap1">
+        SELECT a.Billid,a.money,a.paytime,b.*,c.*,d.Ticketid,d.roomid,d.site
+        FROM Bill_Info a,User_Info b,Room_Info c,Ticket_Info d where a.Phone=#{phone} and
+            a.Phone=b.Phone and c.Roomid=a.roomid and d.Billid=a.Billid;
+    </select>
+    <delete id="delBill" parameterType="java.lang.Integer">
+        DELETE from Bill_Info where Billid=#{bid};
+    </delete>
+    <delete id="delTicket" parameterType="java.lang.Integer">
+        DELETE from Ticket_Info where Billid=#{bid};
+    </delete>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.UserMapper">
+    <select id="findOne" parameterType="User" resultType="User">
+        SELECT * FROM User_info where Phone=#{phone} and Password=#{password}
+    </select>
+    <insert id="addOne" parameterType="User" >
+        insert into User_Info(UserName,Phone,Password,Email) values(#{username},#{phone},#{password},#{email})
+    </insert>
+    <select id="checkReg" resultType="User">
+        select * from User_Info where Phone=#{telephone}
+    </select>
+    <update id="secChangeuser">
+        update User_Info set Password=#{pwd} where Phone=#{phone}
+    </update>
+</mapper>
