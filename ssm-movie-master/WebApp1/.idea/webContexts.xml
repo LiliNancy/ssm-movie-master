@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Removie.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/headM.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/log.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/researchbill.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/allbill.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/researchok.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+      </map>
+    </option>
+  </component>
+</project>
